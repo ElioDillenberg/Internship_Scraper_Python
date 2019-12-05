@@ -1,6 +1,6 @@
 import sys
-import requests
-from bs4 import BeautifulSoup
+import os
+import scrapy
 
 def parse_input(user_input): # maybe here we should send the list from which to pick 
     try:
@@ -16,33 +16,30 @@ def parse_input(user_input): # maybe here we should send the list from which to 
         print("TYPE ERREUR INCONNU")
         sys.exit()
 
-
+print("Ce script vous permer de trouver rapidement les offres d'emploi pour les technos qui vous intéressent\n \
+    pour info: les recherches s'effectuent pour l'instant uniquement sur Paris\n\n")
 # this function handles the entire user input at the beginning and returns SMTH that will contain all the choices
 # script will then chose the right website witht he right settings to scrap
 def get_user_input():
-    c_site = input("Veuillez sélectionner un des sites suivant à parser\n \
-        0 : Welcome to the Jungle \n\n\
-        Choice : ")
+    c_site = input("Veuillez sélectionner un des sites suivant à scraper\n \
+    0 : Welcome to the Jungle \n\n \
+    1 : LinkedIn \n\n \
+    Choice : ")
     parse_input(c_site)
     c_contract = input("Veuillez sélectionner un type de contrat\n \
-        0 : Stage \n\n\
-        Choice : ")
+    0 : Stage \n\n \
+    1 : CDI/CDD \n\n \
+    Choice : ")
     parse_input(c_contract)
-    c_language = input("Veuillez sélectionner un type langage\n \
-    0 : Python \n\n\
-    1 : Javascript \n\n\
+    c_language = input("Veuillez sélectionner langage\n \
+    0 : Python \n\n \
+    1 : Javascript \n\n \
+    2 : PHP \n\n \
     Choice : ")
     parse_input(c_language)
     return c_site, c_contract, c_language
 
-website_list = [("Welcome to the Jungle", "https://www.welcometothejungle.com/fr/jobs")]
-
 user_choices = get_user_input()
-
 print(user_choices)
 
-source = requests.get('https://www.welcometothejungle.com/fr/jobs').text
-soup = BeautifulSoup(source, 'lxml')
-job_links = soup.find_all('a')
-for link in job_links:
-    print(link['href'])
+os.system("scrapy crawl WelcomeToTheJungle -o data.json")
