@@ -43,4 +43,4 @@ def get_user_input():
 # user_choices = get_user_input()
 # print(user_choices)
 
-os.system("scrapy crawl WelcomeToTheJungle -o data.json")
+os.system("scrapy crawl WelcomeToTheJungle -o data.json -t json")

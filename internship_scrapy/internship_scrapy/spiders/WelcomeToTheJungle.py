@@ -1,5 +1,4 @@
 import scrapy
-from scrapy_selenium import SeleniumRequest
 
 class   WelcomeToTheJungle(scrapy.Spider):
     name = "WelcomeToTheJungle"
@@ -10,11 +9,18 @@ class   WelcomeToTheJungle(scrapy.Spider):
 
     def parse(self, response):
         for link in response.xpath("//ul[@class='ais-Hits-list']/li/article/a"):
+            # link = link.xpath(".//@href")
+            # yield scrapy.Request(link, callback=self.parse_offer)
             yield {
                 'link': link.xpath(".//@href").get()
             }
-        next_page = response.xpath("//li[@class='ais-Pagination-item ais-Pagination-item--nextPage'/a/@href]").get()
+        next_page = response.xpath("//li[@class='ais-Pagination-item ais-Pagination-item--nextPage']/a/@href").get()
         if next_page is not None:
-            print("NEXT PAGE")
-            next_page_link = response.urljoin(next_page)
-            yield SeleniumRequest(url=next_page_link, callback=self.parse)
+            yield response.follow(next_page, callback=self.parse)
+
+    def parse_offer(self, response):
+        for link in response.xpath("//ul[@class='ais-Hits-list']/li/article/a"):
+            link = link.xpath(".//@href")
+            yield {
+                'link': link.xpath(".//@href").get()
+            }
