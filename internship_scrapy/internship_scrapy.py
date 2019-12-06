@@ -16,8 +16,9 @@ def parse_input(user_input): # maybe here we should send the list from which to 
         print("TYPE ERREUR INCONNU")
         sys.exit()
 
-print("Ce script vous permer de trouver rapidement les offres d'emploi pour les technos qui vous intéressent\n \
-    pour info: les recherches s'effectuent pour l'instant uniquement sur Paris\n\n")
+# print("Ce script vous permer de trouver rapidement les offres d'emploi pour les technos qui vous intéressent\n \
+#     pour info: les recherches s'effectuent pour l'instant uniquement sur Paris\n\n")
+
 # this function handles the entire user input at the beginning and returns SMTH that will contain all the choices
 # script will then chose the right website witht he right settings to scrap
 def get_user_input():
@@ -39,7 +40,7 @@ def get_user_input():
     parse_input(c_language)
     return c_site, c_contract, c_language
 
-user_choices = get_user_input()
-print(user_choices)
+# user_choices = get_user_input()
+# print(user_choices)
 
 os.system("scrapy crawl WelcomeToTheJungle -o data.json")

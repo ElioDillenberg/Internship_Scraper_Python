@@ -6,7 +6,14 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.http import HtmlResponse
+from selenium import webdriver
 
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+options.add_argument('window-size=1200x600')
+
+driver = webdriver.Chrome(chrome_options=options)
 
 class InternshipScrapySpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -78,7 +85,14 @@ class InternshipScrapyDownloaderMiddleware(object):
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        return None
+
+        # added the lines 3 below to implement selenium
+        driver = webdriver.Chrome('chromedriver')
+        driver.get(request.url)
+        body = driver.page_source
+        return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
+        # end of input for selenium
+        # return None
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
