@@ -92,9 +92,10 @@ class InternshipScrapyDownloaderMiddleware(object):
         # added the lines 3 below to implement selenium
         driver = webdriver.Chrome('chromedriver')
         driver.get(request.url)
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//li[@class='ais-Pagination-item ais-Pagination-item--nextPage']"))
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
         )
+        # WebDriverWait(driver, 2)
         body = driver.page_source
         return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
         # end of input for selenium
