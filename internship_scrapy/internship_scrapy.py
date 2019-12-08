@@ -19,6 +19,7 @@ def parse_input(user_input, len):
 spiders = list()
 spiders.append("WelcomeToTheJungle")
 
+# ADD NEW LANGUAGES TO PARSE TO THIS LIST
 languages = list()
 languages.append("Python")
 languages.append("PHP")
@@ -39,7 +40,9 @@ def get_user_input(spiders, languages):
 
     return int(c_site), int(c_language)
 
+# Get user inpu
 user_choice = get_user_input(spiders, languages)
 
+# Build scrapy crawl based on user input
 scrapy_call = "scrapy crawl " + spiders[user_choice[0]] + " -a language=" + languages[user_choice[1]] + " -o " + spiders[user_choice[0]] + ".json -t json"
 os.system(scrapy_call)
