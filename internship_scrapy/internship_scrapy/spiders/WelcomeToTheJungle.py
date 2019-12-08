@@ -19,8 +19,8 @@ class   WelcomeToTheJungle(scrapy.Spider):
 
     def parse_offer(self, response):
         text = response.xpath("//div[@class='sc-11unfkk-2 NggfW']//text()").getall()
-        joined_text = ''.join(text)
-        if self.language in joined_text:
+        joined_text = ''.join(text).lower()
+        if self.language.lower() in joined_text:
             yield {
                 self.language + ' offer': response.request.url,
             }

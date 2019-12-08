@@ -41,6 +41,5 @@ def get_user_input(spiders, languages):
 
 user_choice = get_user_input(spiders, languages)
 
-# calling scrapy from system to start crawling user choice / comment if you want to scrap all with bellow
 scrapy_call = "scrapy crawl " + spiders[user_choice[0]] + " -a language=" + languages[user_choice[1]] + " -o " + spiders[user_choice[0]] + ".json -t json"
 os.system(scrapy_call)
