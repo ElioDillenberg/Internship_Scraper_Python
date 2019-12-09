@@ -18,6 +18,7 @@ def parse_input(user_input, len):
 # ADD NEW SPIDERS TO THIS LIST (spiders need to have the same name as in their Scrapy classes)
 spiders = list()
 spiders.append("WelcomeToTheJungle")
+spiders.append("LinkedIn")
 
 # ADD NEW LANGUAGES TO PARSE TO THIS LIST
 languages = list()
