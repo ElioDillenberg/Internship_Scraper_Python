@@ -89,15 +89,15 @@ class InternshipScrapyDownloaderMiddleware(object):
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
 
-        # added the lines 3 below to implement selenium
-        driver = webdriver.Chrome('chromedriver')
-        driver.get(request.url)
-        WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
-        )
-        body = driver.page_source
-        return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
-        # return None
+        # UNCOMENT BELOW FOR USE OF SELENIUM
+        # driver = webdriver.Chrome('chromedriver')
+        # driver.get(request.url)
+        # WebDriverWait(driver, 5).until(
+        #     EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
+        # )
+        # body = driver.page_source
+        # return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
+        return None
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
