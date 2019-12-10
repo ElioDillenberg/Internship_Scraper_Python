@@ -13,9 +13,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 options = webdriver.ChromeOptions()
-options.add_argument('headless')
+options.add_argument('--headless')
 options.add_argument('window-size=1200x600')
-
 driver = webdriver.Chrome(chrome_options=options)
 
 class InternshipScrapySpiderMiddleware(object):
