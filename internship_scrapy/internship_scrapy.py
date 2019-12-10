@@ -19,6 +19,7 @@ def parse_input(user_input, len):
 spiders = list()
 spiders.append("WelcomeToTheJungle")
 spiders.append("LinkedIn")
+spiders.append("intra42")
 
 # ADD NEW LANGUAGES TO PARSE TO THIS LIST
 languages = list()
