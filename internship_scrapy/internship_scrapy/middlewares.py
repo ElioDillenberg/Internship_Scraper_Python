@@ -13,7 +13,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 options = webdriver.ChromeOptions()
-options.add_argument('--headless')
+# options.binary_location = '/usr/local/bin/chromedriver'
+options.add_argument('headless')
 options.add_argument('window-size=1200x600')
 driver = webdriver.Chrome(chrome_options=options)
 
@@ -89,7 +90,6 @@ class InternshipScrapyDownloaderMiddleware(object):
         #   installed downloader middleware will be called
 
         # added the lines 3 below to implement selenium
-        driver = webdriver.Chrome('chromedriver')
         driver.get(request.url)
         WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
