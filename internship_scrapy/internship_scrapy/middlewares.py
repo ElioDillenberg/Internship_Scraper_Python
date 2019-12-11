@@ -13,7 +13,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 options = webdriver.ChromeOptions()
-# options.binary_location = '/usr/local/bin/chromedriver'
 options.add_argument('headless')
 options.add_argument('window-size=1200x600')
 driver = webdriver.Chrome(chrome_options=options)
@@ -91,9 +90,14 @@ class InternshipScrapyDownloaderMiddleware(object):
 
         # added the lines 3 below to implement selenium
         driver.get(request.url)
-        WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
-        )
+        if "https://www.welcometothejungle.com" in request.url:
+            WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
+            )
+        # if "https://companies.intra.42.fr" in request.url:
+        #     WebDriverWait(driver, 3).until(
+        #         EC.presence_of_element_located((By.XPATH, "//div[@class='flex-item paginate']"))
+        #     )
         body = driver.page_source
         return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
         # return None
