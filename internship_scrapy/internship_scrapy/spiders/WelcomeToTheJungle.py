@@ -1,4 +1,5 @@
 import scrapy
+from internship_scrapy.items import InternshipScrapyItem
 
 class   WelcomeToTheJungle(scrapy.Spider):
     name = "WelcomeToTheJungle"
@@ -19,9 +20,11 @@ class   WelcomeToTheJungle(scrapy.Spider):
     def parse_offer(self, response):
         text = response.xpath("//div[@class='sc-11unfkk-2 NggfW']//text()").getall()
         joined_text = ''.join(text).lower()
-        offer = response.xpath("//h1[@class='sc-12bzhsi-3 kaJlvc']//text()").get()
-        company = response.xpath("//h3[@class='sc-12bzhsi-9 gOYEPp']//text()").get()
-        if self.language.lower() in joined_text:
-            yield {
-               offer + " chez " + company + " (" + self.language + ")": response.request.url,
-            }
+        language = getattr(self, 'language', None)
+        if language.lower() in joined_text:
+            item = InternshipScrapyItem()
+            company = response.xpath("//h3[@class='sc-12bzhsi-9 gOYEPp']//text()").get()
+            offer = response.xpath("//h1[@class='sc-12bzhsi-3 kaJlvc']//text()").get()
+            item['title'] = offer + " chez " + company + " (" + language + ")"
+            item['url'] = response.request.url
+            yield item

@@ -1,4 +1,5 @@
 import scrapy
+from internship_scrapy.items import InternshipScrapyItem
 
 class   Intra42(scrapy.Spider):
     name = "Intra42"
@@ -11,7 +12,7 @@ class   Intra42(scrapy.Spider):
         for link in response.xpath("//div[@class='page-content']/div/h3/a"):
             offer = link.xpath(".//@href").get()
             print("\n\n\n" + offer + "\n\n\n")
-            # yield response.follow(offer, callbacl=self.parse_offer)
+            yield response.follow(offer, callback=self.parse_offer)
 
         next_page = response.xpath("//li[@class='next']/a/@href").get()
         if next_page is not None:
@@ -20,8 +21,11 @@ class   Intra42(scrapy.Spider):
     def parse_offer(self, response):
         text = response.xpath("//div[@class='show-offer']//text()").getall()
         joined_text = ''.join(text).lower()
-        offer = response.xpath("//div[@class='show-left company-name']/h2//text()").get()
-        if self.language.lower() in joined_text:
-            yield {
-               offer + " (" + self.language + ")": response.request.url,
-            }
+        language = getattr(self, 'language', None)
+        if language.lower() in joined_text:
+            item = InternshipScrapyItem()
+            company = response.xpath("//div[@class='show-offer']/(div[@class='flex-item'])[2]/div[@class='show-right']/div[@class='title']/a//text()").get()
+            offer = response.xpath("//div[@class='show-left company-name']/h2//text()").get()
+            item['title'] = offer + " chez " + company + " (" + language + ")"
+            item['url'] = response.request.url
+            yield item

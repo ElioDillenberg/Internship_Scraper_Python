@@ -61,11 +61,20 @@ DOWNLOADER_MIDDLEWARES = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
+# Configue database settings
+
+DB_SETTINGS = {
+    'db': 'internship_scrapy',
+    'user': 'root',
+    'passwd': 'internship',
+    'host': 'localhost',
+}
+
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'internship_scrapy.pipelines.InternshipScrapyPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'internship_scrapy.pipelines.InternshipScrapyPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

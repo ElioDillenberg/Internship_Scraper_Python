@@ -2,6 +2,7 @@ import sys
 import os
 
 def parse_input(user_input, len):
+    """Parse the user input, arg: user input and length of list as user input reference"""
     try:
         user_input = int(user_input)
         assert user_input < len
@@ -18,7 +19,7 @@ def parse_input(user_input, len):
 # ADD NEW SPIDERS TO THIS LIST (spiders need to have the same name as in their Scrapy classes)
 spiders = list()
 spiders.append("WelcomeToTheJungle")
-spiders.append("Intra42")
+spiders.append("JobTeaser")
 spiders.append("LinkedIn")
 
 # ADD NEW LANGUAGES TO PARSE TO THIS LIST
@@ -29,6 +30,7 @@ languages.append("Javascript")
 
 # prompt user for website to scrape -> retuns index of corresponding website
 def get_user_input(spiders, languages):
+    """Prompt user for input and parse it"""
     print ("Veuillez sélectionner un des sites suivant à scraper \n")
     for i, spider in enumerate(spiders):
         print(str(i) + " : " + spider + "\n")
@@ -46,5 +48,5 @@ def get_user_input(spiders, languages):
 user_choice = get_user_input(spiders, languages)
 
 # Build scrapy crawl based on user input
-scrapy_call = "scrapy crawl " + spiders[user_choice[0]] + " -a language=" + languages[user_choice[1]] + " -o " + spiders[user_choice[0]] + ".json -t json"
+scrapy_call = "scrapy crawl " + spiders[user_choice[0]] + " -a language=" + languages[user_choice[1]] + " -o " + spiders[user_choice[0]] + "_" + languages[user_choice[1]] + ".json -t json"
 os.system(scrapy_call)

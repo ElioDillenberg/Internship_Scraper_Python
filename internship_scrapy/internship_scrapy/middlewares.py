@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# Setting options to webdriver as Headless (no graphical interface)
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
 options.add_argument('window-size=1200x600')
@@ -73,6 +74,14 @@ class InternshipScrapyDownloaderMiddleware(object):
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
+        # db_settings = crawler.db_settings.detdict("DB_SETTINGS")
+        # if not db_settings:
+        #     raise ConnectionRefusedError
+        # db = db_settings['db']
+        # user = db_settings['user']
+        # passwd = db_settings['passwd']
+        # host = db_settings['host']
+        # return cls(db, user, passwd, host) # returning pipeline instance
         s = cls()
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
@@ -90,14 +99,15 @@ class InternshipScrapyDownloaderMiddleware(object):
 
         # added the lines 3 below to implement selenium
         driver.get(request.url)
-        if "https://www.welcometothejungle.com" in request.url:
+        if "welcometothejungle" in request.url:
             WebDriverWait(driver, 3).until(
                 EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
             )
-        # if "https://companies.intra.42.fr" in request.url:
-        #     WebDriverWait(driver, 3).until(
-        #         EC.presence_of_element_located((By.XPATH, "//div[@class='flex-item paginate']"))
-        #     )
+        elif "jobteaser" in request.url:
+            # WebDriverWait(driver, 3).until(
+            #     EC.presence_of_element_located((By.XPATH, "//footer[@class='jt-Footer']"))
+            # )
+            WebDriverWait(driver, 3)
         body = driver.page_source
         return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
         # return None
