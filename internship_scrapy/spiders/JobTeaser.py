@@ -9,7 +9,7 @@ class   JobTeaser(scrapy.Spider):
     ]
 
     def parse(self, response):
-        print(response.xpath("//div[@class='jds-Layout__column__94LEL']/section/div/div/a"))
+        print(response.xpath("//html//text()").getall())
         for link in response.xpath("//div[@class='jds-Layout__column__94LEL']/section/div/div/a"):
             print("\n\n\nHELLO\n\n\n")
             offer = link.xpath(".//@href").get()

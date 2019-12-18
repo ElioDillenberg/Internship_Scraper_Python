@@ -103,11 +103,12 @@ class InternshipScrapyDownloaderMiddleware(object):
             WebDriverWait(driver, 3).until(
                 EC.presence_of_element_located((By.XPATH, "//footer[@class='bt96d2-0 foCkmu']"))
             )
-        elif "jobteaser" in request.url:
+        # elif "jobteaser" in request.url:
+        else:
             # WebDriverWait(driver, 3).until(
             #     EC.presence_of_element_located((By.XPATH, "//footer[@class='jt-Footer']"))
             # )
-            WebDriverWait(driver, 3)
+            WebDriverWait(driver, 10)
         body = driver.page_source
         return HtmlResponse(driver.current_url, body=body, encoding='utf-8', request=request)
         # return None
