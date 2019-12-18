@@ -1,6 +1,6 @@
 # Internship_Scraper_Python
 
-This simple python script is used to parse several job offering websites. I am learning Python while doing this.
+This simple python script is used to scrape several job offering websites. I am learning Python while doing this.
 
 Imports: Scrapy, Selenium
 
