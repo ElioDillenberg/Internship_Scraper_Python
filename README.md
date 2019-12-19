@@ -15,3 +15,5 @@ python3.7 internship_scrapy.py
 3. Let it run
 4. All offers are stored in the created Json file named after your search
 5. Enjoy applying!
+
+NB: currently only works for WelcomeToTheJungle + configured to look only in the Paris area
